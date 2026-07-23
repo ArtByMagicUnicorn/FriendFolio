@@ -1,5 +1,7 @@
 namespace FriendFolio
 {
+    using Friendfolio.Data;
+    using Microsoft.EntityFrameworkCore;
     public class Program
     {
         public static void Main(string[] args)
@@ -8,6 +10,9 @@ namespace FriendFolio
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+
+            builder.Services.AddDbContext<FriendfolioDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("FriendfolioDb")));
 
             var app = builder.Build();
 
