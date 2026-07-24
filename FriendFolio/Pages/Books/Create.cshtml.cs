@@ -31,6 +31,35 @@ public class CreateModel : PageModel
         MemoryBook.InviteToken = Guid.NewGuid().ToString("N");
         MemoryBook.CreatedAt = DateTime.UtcNow;
 
+        MemoryBook.Questions =
+[
+    new BookQuestion
+    {
+        Text = "Vad är ditt bästa minne med mig/oss?",
+        SortOrder = 1
+    },
+    new BookQuestion
+    {
+        Text = "Beskriv mig/oss med tre ord.",
+        SortOrder = 2
+    },
+    new BookQuestion
+    {
+        Text = "Vilken låt, film eller serie påminner dig om mig/oss?",
+        SortOrder = 3
+    },
+    new BookQuestion
+    {
+        Text = "Vad borde vi göra tillsammans någon gång?",
+        SortOrder = 4
+    },
+    new BookQuestion
+    {
+        Text = "Har du något råd, hälsning eller hemlig visdom att lämna här?",
+        SortOrder = 5
+    }
+];
+
         _context.MemoryBooks.Add(MemoryBook);
         await _context.SaveChangesAsync();
 

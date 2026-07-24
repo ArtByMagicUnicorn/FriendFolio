@@ -20,12 +20,16 @@ public class DetailsModel : PageModel
     [BindProperty]
     public string NewQuestionText { get; set; } = string.Empty;
 
+    public string InviteUrl { get; set; } = string.Empty;
+
     public async Task<IActionResult> OnGetAsync(int id)
     {
         var memoryBook = await _context.MemoryBooks
-            .Include(book => book.Questions.OrderBy(question => question.SortOrder))
-            .Include(book => book.Entries)
-            .FirstOrDefaultAsync(book => book.Id == id);
+    .Include(book => book.Questions.OrderBy(question => question.SortOrder))
+    .Include(book => book.Entries)
+        .ThenInclude(entry => entry.Answers)
+            .ThenInclude(answer => answer.BookQuestion)
+    .FirstOrDefaultAsync(book => book.Id == id);
 
         if (memoryBook is null)
         {
@@ -33,6 +37,12 @@ public class DetailsModel : PageModel
         }
 
         MemoryBook = memoryBook;
+
+        InviteUrl = Url.Page(
+    "/Books/Join",
+    pageHandler: null,
+    values: new { inviteToken = memoryBook.InviteToken },
+    protocol: Request.Scheme) ?? string.Empty;
 
         return Page();
     }

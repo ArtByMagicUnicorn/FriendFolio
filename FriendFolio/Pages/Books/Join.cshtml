@@ -5,7 +5,8 @@
     ViewData["Title"] = $"Svara i {Model.MemoryBook.Title}";
 }
 
-<section>
+<section class="page-header join-header">
+    <p class="eyebrow">Du är inbjuden</p>
     <h1>@Model.MemoryBook.Title</h1>
 
     @if (!string.IsNullOrWhiteSpace(Model.MemoryBook.Description))
@@ -18,33 +19,45 @@
 
 @if (!Model.MemoryBook.Questions.Any())
 {
-    <p>Den här boken har inga frågor ännu.</p>
+    <section class="empty-state">
+        <h2>Inga frågor ännu</h2>
+        <p>Den här boken har inga frågor att svara på just nu.</p>
+    </section>
 }
 else
 {
-    <form method="post">
-        <div class="mb-3">
-            <label asp-for="DisplayName" class="form-label">Ditt namn</label>
-            <input asp-for="DisplayName" class="form-control" />
-            <span asp-validation-for="DisplayName" class="text-danger"></span>
-        </div>
-
-        @foreach (var question in Model.MemoryBook.Questions)
-        {
-            <div class="mb-3">
-                <label class="form-label" for="Answers_@question.Id">
-                    @question.Text
-                </label>
-
-                <textarea name="Answers[@question.Id]"
-                          id="Answers_@question.Id"
-                          class="form-control"
-                          rows="3"></textarea>
+    <section class="form-card join-card">
+        <form method="post">
+            <div class="mb-4">
+                <label asp-for="DisplayName" class="form-label">Ditt namn</label>
+                <input asp-for="DisplayName"
+                       class="form-control"
+                       placeholder="Skriv ditt namn" />
+                <span asp-validation-for="DisplayName" class="text-danger"></span>
             </div>
-        }
 
-        <button type="submit" class="btn btn-primary">Skicka svar</button>
-    </form>
+            <div class="join-question-list">
+                @foreach (var question in Model.MemoryBook.Questions.OrderBy(question => question.SortOrder))
+                {
+                    <div class="join-question">
+                        <label class="form-label" for="Answers_@question.Id">
+                            @question.Text
+                        </label>
+
+                        <textarea name="Answers[@question.Id]"
+                                  id="Answers_@question.Id"
+                                  class="form-control"
+                                  rows="3"
+                                  placeholder="Skriv ditt svar här"></textarea>
+                    </div>
+                }
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Skicka svar</button>
+            </div>
+        </form>
+    </section>
 }
 
 @section Scripts {
