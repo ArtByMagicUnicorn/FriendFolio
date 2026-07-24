@@ -1,4 +1,72 @@
-﻿@page
-@model FriendFolio.Pages.Books.DetailsModel
+﻿@page "{id:int}"
+@model Friendfolio.Pages.Books.DetailsModel
+
 @{
+    ViewData["Title"] = Model.MemoryBook.Title;
 }
+
+<section>
+    <a asp-page="./Index" class="btn btn-outline-secondary mb-3">Tillbaka till böcker</a>
+
+    <h1>@Model.MemoryBook.Title</h1>
+
+    @if (!string.IsNullOrWhiteSpace(Model.MemoryBook.Description))
+    {
+        <p>@Model.MemoryBook.Description</p>
+    }
+
+    <p>Skapad @Model.MemoryBook.CreatedAt.ToString("yyyy-MM-dd")</p>
+</section>
+
+<section>
+    <h2>Delningslänk</h2>
+    <p>Skicka den här länken till personer som ska svara i boken.</p>
+
+    <code>
+        /Books/Join/@Model.MemoryBook.InviteToken
+    </code>
+</section>
+
+<section>
+    <h2>Frågor</h2>
+
+    @if (!Model.MemoryBook.Questions.Any())
+    {
+        <p>Den här boken har inga frågor ännu.</p>
+    }
+    else
+    {
+        <ol>
+            @foreach (var question in Model.MemoryBook.Questions)
+            {
+                <li>@question.Text</li>
+            }
+        </ol>
+    }
+
+    <form method="post" asp-page-handler="AddQuestion">
+        <div class="mb-3">
+            <label asp-for="NewQuestionText" class="form-label">Ny fråga</label>
+            <input asp-for="NewQuestionText"
+                   class="form-control"
+                   placeholder="Till exempel: Vad är ditt bästa minne med mig?" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Lägg till fråga</button>
+    </form>
+</section>
+
+
+
+<section>
+    <h2>Svar</h2>
+
+    @if (!Model.MemoryBook.Entries.Any())
+    {
+        <p>Ingen har svarat i boken ännu.</p>
+    }
+    else
+    {
+        <p>@Model.MemoryBook.Entries.Count svar har skickats in.</p>
+    }
+</section>

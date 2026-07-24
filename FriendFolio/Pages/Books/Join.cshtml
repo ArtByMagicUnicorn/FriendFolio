@@ -1,0 +1,52 @@
+﻿@page "{inviteToken}"
+@model Friendfolio.Pages.Books.JoinModel
+
+@{
+    ViewData["Title"] = $"Svara i {Model.MemoryBook.Title}";
+}
+
+<section>
+    <h1>@Model.MemoryBook.Title</h1>
+
+    @if (!string.IsNullOrWhiteSpace(Model.MemoryBook.Description))
+    {
+        <p>@Model.MemoryBook.Description</p>
+    }
+
+    <p>Fyll i dina svar och skicka in ditt uppslag till boken.</p>
+</section>
+
+@if (!Model.MemoryBook.Questions.Any())
+{
+    <p>Den här boken har inga frågor ännu.</p>
+}
+else
+{
+    <form method="post">
+        <div class="mb-3">
+            <label asp-for="DisplayName" class="form-label">Ditt namn</label>
+            <input asp-for="DisplayName" class="form-control" />
+            <span asp-validation-for="DisplayName" class="text-danger"></span>
+        </div>
+
+        @foreach (var question in Model.MemoryBook.Questions)
+        {
+            <div class="mb-3">
+                <label class="form-label" for="Answers_@question.Id">
+                    @question.Text
+                </label>
+
+                <textarea name="Answers[@question.Id]"
+                          id="Answers_@question.Id"
+                          class="form-control"
+                          rows="3"></textarea>
+            </div>
+        }
+
+        <button type="submit" class="btn btn-primary">Skicka svar</button>
+    </form>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

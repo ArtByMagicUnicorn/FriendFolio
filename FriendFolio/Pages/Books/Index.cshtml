@@ -1,4 +1,38 @@
 ﻿@page
-@model FriendFolio.Pages.Books.IndexModel
+@model Friendfolio.Pages.Books.IndexModel
+
 @{
+    ViewData["Title"] = "Mina böcker";
+}
+
+<section>
+    <h1>Mina böcker</h1>
+    <p>Skapa och hantera digitala vänböcker för vänner, grupper och minnen.</p>
+
+    <a asp-page="./Create" class="btn btn-primary">Skapa bok</a>
+</section>
+
+@if (!Model.MemoryBooks.Any())
+{
+    <p>Du har inga böcker än. Skapa din första Friendfolio-bok.</p>
+}
+else
+{
+    <section>
+        @foreach (var book in Model.MemoryBooks)
+        {
+            <article>
+                <h2>@book.Title</h2>
+
+                @if (!string.IsNullOrWhiteSpace(book.Description))
+                {
+                    <p>@book.Description</p>
+                }
+
+                <p>Skapad @book.CreatedAt.ToString("yyyy-MM-dd")</p>
+
+                <a asp-page="./Details" asp-route-id="@book.Id">Öppna bok</a>
+            </article>
+        }
+    </section>
 }
