@@ -1,10 +1,54 @@
 ﻿@page
 @model IndexModel
+
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Start";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="home-hero">
+    <div class="home-hero-content">
+        <p class="eyebrow">FriendFolio</p>
+        <h1>Mina vänner. Våra berättelser.</h1>
+        <p>
+            Skapa en digital vänbok, dela länken med dina personer och samla deras
+            svar på ett ställe.
+        </p>
+
+        <div class="form-actions">
+            <a asp-page="/Books/Create" class="btn btn-primary">Skapa en bok</a>
+            <a asp-page="/Books/Index" class="btn btn-outline-secondary">Mina böcker</a>
+        </div>
+    </div>
+
+    <div class="home-hero-brand">
+        <img src="~/images/brand/FriendFolio.png"
+             alt="FriendFolio - Mina vänner. Våra berättelser." />
+    </div>
+</section>
+
+<section class="content-panel">
+    <div class="section-heading">
+        <p class="eyebrow">Så funkar det</p>
+        <h2>Tre enkla steg</h2>
+    </div>
+
+    <div class="steps-grid">
+        <article class="step-card">
+            <span>1</span>
+            <h3>Skapa en bok</h3>
+            <p>Ge boken ett namn och låt FriendFolio lägga till några vänboksfrågor.</p>
+        </article>
+
+        <article class="step-card">
+            <span>2</span>
+            <h3>Dela länken</h3>
+            <p>Skicka den privata länken till vänner, kollegor, gäster eller familj.</p>
+        </article>
+
+        <article class="step-card">
+            <span>3</span>
+            <h3>Samla svar</h3>
+            <p>Läs alla inskickade uppslag och spara berättelserna på ett ställe.</p>
+        </article>
+    </div>
+</section>

@@ -5,23 +5,29 @@
     ViewData["Title"] = "Mina böcker";
 }
 
-<section>
+<section class="page-header">
+    <p class="eyebrow">Friendfolio</p>
     <h1>Mina böcker</h1>
     <p>Skapa och hantera digitala vänböcker för vänner, grupper och minnen.</p>
 
     <a asp-page="./Create" class="btn btn-primary">Skapa bok</a>
 </section>
 
+
 @if (!Model.MemoryBooks.Any())
 {
-    <p>Du har inga böcker än. Skapa din första Friendfolio-bok.</p>
+    <section class="empty-state">
+        <h2>Inga böcker ännu</h2>
+        <p>Skapa din första Friendfolio-bok och börja samla svar.</p>
+    </section>
 }
 else
 {
-    <section>
+    <section class="book-grid">
         @foreach (var book in Model.MemoryBooks)
         {
-            <article>
+            <article class="book-card">
+                <p class="eyebrow">Vänbok</p>
                 <h2>@book.Title</h2>
 
                 @if (!string.IsNullOrWhiteSpace(book.Description))
@@ -29,9 +35,15 @@ else
                     <p>@book.Description</p>
                 }
 
-                <p>Skapad @book.CreatedAt.ToString("yyyy-MM-dd")</p>
+                <span class="book-meta">
+                    Skapad @book.CreatedAt.ToString("yyyy-MM-dd")
+                </span>
 
-                <a asp-page="./Details" asp-route-id="@book.Id">Öppna bok</a>
+                <a asp-page="./Details"
+                   asp-route-id="@book.Id"
+                   class="btn btn-outline-secondary">
+                    Öppna bok
+                </a>
             </article>
         }
     </section>

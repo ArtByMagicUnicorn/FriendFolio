@@ -5,9 +5,10 @@
     ViewData["Title"] = Model.MemoryBook.Title;
 }
 
-<section>
+<section class="page-header book-header">
     <a asp-page="./Index" class="btn btn-outline-secondary mb-3">Tillbaka till böcker</a>
 
+    <p class="eyebrow">Vänbok</p>
     <h1>@Model.MemoryBook.Title</h1>
 
     @if (!string.IsNullOrWhiteSpace(Model.MemoryBook.Description))
@@ -15,20 +16,48 @@
         <p>@Model.MemoryBook.Description</p>
     }
 
-    <p>Skapad @Model.MemoryBook.CreatedAt.ToString("yyyy-MM-dd")</p>
+    <span class="book-meta">
+        Skapad @Model.MemoryBook.CreatedAt.ToString("yyyy-MM-dd")
+    </span>
 </section>
 
-<section>
-    <h2>Delningslänk</h2>
-    <p>Skicka den här länken till personer som ska svara i boken.</p>
+<section class="invite-panel">
+    <div>
+        <p class="eyebrow">Dela boken</p>
+        <h2>Delningslänk</h2>
+        <p>Skicka länken till personer som ska svara i boken.</p>
+    </div>
 
-    <code>
-        /Books/Join/@Model.MemoryBook.InviteToken
-    </code>
+    <div class="input-group invite-link-group">
+        <input value="@Model.InviteUrl"
+               id="inviteUrl"
+               class="form-control"
+               readonly />
+
+        <button type="button"
+                class="btn btn-outline-secondary"
+                onclick="copyInviteLink()">
+            Kopiera
+        </button>
+
+        <a href="@Model.InviteUrl"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="btn btn-outline-secondary">
+            Öppna
+        </a>
+    </div>
+
+    <p id="copyMessage" class="copy-message" hidden>
+        Länken är kopierad!
+    </p>
 </section>
 
-<section>
-    <h2>Frågor</h2>
+<section class="content-panel">
+    <div class="section-heading">
+        <p class="eyebrow">Frågor</p>
+        <h2>Bokens frågor</h2>
+    </div>
 
     @if (!Model.MemoryBook.Questions.Any())
     {
@@ -36,15 +65,15 @@
     }
     else
     {
-        <ol>
-            @foreach (var question in Model.MemoryBook.Questions)
+        <ol class="question-list">
+            @foreach (var question in Model.MemoryBook.Questions.OrderBy(question => question.SortOrder))
             {
                 <li>@question.Text</li>
             }
         </ol>
     }
 
-    <form method="post" asp-page-handler="AddQuestion">
+    <form method="post" asp-page-handler="AddQuestion" class="question-form">
         <div class="mb-3">
             <label asp-for="NewQuestionText" class="form-label">Ny fråga</label>
             <input asp-for="NewQuestionText"
@@ -56,10 +85,11 @@
     </form>
 </section>
 
-
-
-<section>
-    <h2>Svar</h2>
+<section class="content-panel">
+    <div class="section-heading">
+        <p class="eyebrow">Svar</p>
+        <h2>Inskickade uppslag</h2>
+    </div>
 
     @if (!Model.MemoryBook.Entries.Any())
     {
@@ -67,6 +97,43 @@
     }
     else
     {
-        <p>@Model.MemoryBook.Entries.Count svar har skickats in.</p>
+        <div class="answer-grid">
+            @foreach (var entry in Model.MemoryBook.Entries.OrderByDescending(entry => entry.CreatedAt))
+            {
+                <article class="answer-card">
+                    <h3>@entry.DisplayName</h3>
+                    <span class="book-meta">
+                        Skickade in @entry.CreatedAt.ToString("yyyy-MM-dd HH:mm")
+                    </span>
+
+                    <div class="answer-list">
+                        @foreach (var answer in entry.Answers.OrderBy(answer => answer.BookQuestion.SortOrder))
+                        {
+                            <div class="answer-item">
+                                <strong>@answer.BookQuestion.Text</strong>
+                                <p>@answer.Text</p>
+                            </div>
+                        }
+                    </div>
+                </article>
+            }
+        </div>
     }
 </section>
+
+@section Scripts {
+    <script>
+        async function copyInviteLink() {
+            const inviteInput = document.getElementById("inviteUrl");
+            const copyMessage = document.getElementById("copyMessage");
+
+            await navigator.clipboard.writeText(inviteInput.value);
+
+            copyMessage.hidden = false;
+
+            setTimeout(() => {
+                copyMessage.hidden = true;
+            }, 2000);
+        }
+    </script>
+}

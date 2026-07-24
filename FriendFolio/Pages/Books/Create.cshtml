@@ -5,27 +5,37 @@
     ViewData["Title"] = "Skapa bok";
 }
 
-<section>
+<section class="page-header">
+    <p class="eyebrow">Ny vänbok</p>
     <h1>Skapa en ny bok</h1>
     <p>Ge boken ett namn och en kort beskrivning. Frågor lägger vi till i nästa steg.</p>
 </section>
 
-<form method="post">
-    <div class="mb-3">
-        <label asp-for="MemoryBook.Title" class="form-label">Titel</label>
-        <input asp-for="MemoryBook.Title" class="form-control" />
-        <span asp-validation-for="MemoryBook.Title" class="text-danger"></span>
-    </div>
+<section class="form-card">
+    <form method="post">
+        <div class="mb-3">
+            <label asp-for="MemoryBook.Title" class="form-label">Titel</label>
+            <input asp-for="MemoryBook.Title"
+                   class="form-control"
+                   placeholder="Till exempel: Sommarfesten 2026" />
+            <span asp-validation-for="MemoryBook.Title" class="text-danger"></span>
+        </div>
 
-    <div class="mb-3">
-        <label asp-for="MemoryBook.Description" class="form-label">Beskrivning</label>
-        <textarea asp-for="MemoryBook.Description" class="form-control" rows="4"></textarea>
-        <span asp-validation-for="MemoryBook.Description" class="text-danger"></span>
-    </div>
+        <div class="mb-3">
+            <label asp-for="MemoryBook.Description" class="form-label">Beskrivning</label>
+            <textarea asp-for="MemoryBook.Description"
+                      class="form-control"
+                      rows="4"
+                      placeholder="Skriv några rader om vad boken handlar om."></textarea>
+            <span asp-validation-for="MemoryBook.Description" class="text-danger"></span>
+        </div>
 
-    <button type="submit" class="btn btn-primary">Skapa bok</button>
-    <a asp-page="./Index" class="btn btn-outline-secondary">Avbryt</a>
-</form>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Skapa bok</button>
+            <a asp-page="./Index" class="btn btn-outline-secondary">Avbryt</a>
+        </div>
+    </form>
+</section>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
