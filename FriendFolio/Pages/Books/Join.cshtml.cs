@@ -21,6 +21,9 @@ public class JoinModel : PageModel
     public string DisplayName { get; set; } = string.Empty;
 
     [BindProperty]
+    public string? PhotoUrl { get; set; }
+
+    [BindProperty]
     public Dictionary<int, string> Answers { get; set; } = [];
 
     public async Task<IActionResult> OnGetAsync(string inviteToken)
@@ -58,7 +61,10 @@ public class JoinModel : PageModel
         {
             MemoryBookId = memoryBook.Id,
             DisplayName = DisplayName.Trim(),
-            CreatedAt = DateTime.UtcNow
+            CreatedAt = DateTime.UtcNow,
+            PhotoUrl = string.IsNullOrWhiteSpace(PhotoUrl)
+    ? null
+    : PhotoUrl.Trim(),
         };
 
         foreach (var question in memoryBook.Questions)
