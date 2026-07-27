@@ -100,11 +100,20 @@
         <div class="answer-grid">
             @foreach (var entry in Model.MemoryBook.Entries.OrderByDescending(entry => entry.CreatedAt))
             {
-                <article class="answer-card">
-                    <h3>@entry.DisplayName</h3>
-                    <span class="book-meta">
-                        Skickade in @entry.CreatedAt.ToString("yyyy-MM-dd HH:mm")
-                    </span>
+                <article class="memory-entry-card">
+                    <div class="memory-entry-header">
+                        <div>
+                            <p class="eyebrow">Uppslag</p>
+                            <h3>@entry.DisplayName</h3>
+                            <span class="book-meta">
+                                Skickade in @entry.CreatedAt.ToString("yyyy-MM-dd HH:mm")
+                            </span>
+                        </div>
+
+                        <div class="memory-entry-photo-placeholder" aria-hidden="true">
+                            <span>Foto</span>
+                        </div>
+                    </div>
 
                     <div class="answer-list">
                         @foreach (var answer in entry.Answers.OrderBy(answer => answer.BookQuestion.SortOrder))
