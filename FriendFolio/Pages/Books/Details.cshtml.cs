@@ -79,4 +79,25 @@ public class DetailsModel : PageModel
 
         return RedirectToPage("./Details", new { id });
     }
+
+    public async Task<IActionResult> OnPostDeleteEntryAsync(int id, int entryId)
+    {
+        var entry = await _context.BookEntries
+            .Include(entry => entry.Answers)
+            .FirstOrDefaultAsync(entry =>
+                entry.Id == entryId &&
+                entry.MemoryBookId == id);
+
+        if (entry is null)
+        {
+            return NotFound();
+        }
+
+        _context.BookAnswers.RemoveRange(entry.Answers);
+        _context.BookEntries.Remove(entry);
+
+        await _context.SaveChangesAsync();
+
+        return RedirectToPage("./Details", new { id });
+    }
 }

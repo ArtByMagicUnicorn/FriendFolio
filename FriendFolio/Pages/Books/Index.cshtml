@@ -16,9 +16,14 @@
 
 @if (!Model.MemoryBooks.Any())
 {
-    <section class="empty-state">
-        <h2>Inga böcker ännu</h2>
-        <p>Skapa din första Friendfolio-bok och börja samla svar.</p>
+    <section class="empty-state empty-books-state">
+        <img src="~/images/friendfolio-empty.png"
+             alt="Illustration av en öppen vänbok"
+             class="empty-state-image" />
+
+        <a asp-page="/Books/Create" class="btn btn-primary">
+            Skapa vänbok
+        </a>
     </section>
 }
 else
@@ -27,8 +32,23 @@ else
         @foreach (var book in Model.MemoryBooks)
         {
             <article class="book-card">
-                <p class="eyebrow">Vänbok</p>
-                <h2>@book.Title</h2>
+                <div class="book-card-header">
+                    <div>
+                        <p class="eyebrow">Vänbok</p>
+                        <h2>@book.Title</h2>
+                    </div>
+
+                    <form method="post"
+                          asp-page-handler="Delete"
+                          asp-route-id="@book.Id"
+                          class="delete-book-form">
+                        <button type="submit"
+                                class="btn btn-outline-secondary btn-sm"
+                                onclick="return confirm('Vill du ta bort hela vänboken? Alla frågor och svar tas bort.');">
+                            Ta bort
+                        </button>
+                    </form>
+                </div>
 
                 @if (!string.IsNullOrWhiteSpace(book.Description))
                 {
@@ -39,11 +59,23 @@ else
                     Skapad @book.CreatedAt.ToString("yyyy-MM-dd")
                 </span>
 
-                <a asp-page="./Details"
-                   asp-route-id="@book.Id"
-                   class="btn btn-outline-secondary">
-                    Öppna bok
-                </a>
+                <div class="book-stats">
+                    <span class="book-stat-chip book-stat-questions">
+                        @book.Questions.Count frågor
+                    </span>
+
+                    <span class="book-stat-chip book-stat-entries">
+                        @book.Entries.Count uppslag
+                    </span>
+                </div>
+
+                <div class="book-actions">
+                    <a asp-page="./Details"
+                       asp-route-id="@book.Id"
+                       class="btn btn-primary">
+                        Öppna bok
+                    </a>
+                </div>
             </article>
         }
     </section>

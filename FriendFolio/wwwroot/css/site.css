@@ -6,6 +6,9 @@
     --color-surface-muted: #CDCDCD;
     --color-primary: #8F6593;
     --color-primary-soft: #AEA4BF;
+    --color-secondary: #778873;
+    --color-secondary-soft: rgba(119, 136, 115, 0.18);
+    --color-secondary-border: rgba(119, 136, 115, 0.45);
     --color-text: #3B252C;
     --color-muted: rgba(59, 37, 44, 0.72);
     --color-border: rgba(59, 37, 44, 0.16);
@@ -154,6 +157,14 @@ section {
     line-height: 0.95;
     margin-bottom: 1rem;
 }
+
+    .home-hero h2 {
+        color: var(--color-text);
+        font-size: clamp(2.4rem, 5vw, 4.5rem);
+        font-weight: 850;
+        line-height: 0.95;
+        margin-bottom: 1rem;
+    }
 
 .page-header p {
     color: var(--color-muted);
@@ -350,6 +361,15 @@ section {
     padding: 1.5rem;
 }
 
+.memory-entry-photo {
+    aspect-ratio: 1;
+    border: 4px solid #ffffff;
+    border-radius: calc(var(--radius-card) * 0.85);
+    box-shadow: 0 14px 34px rgba(59, 37, 44, 0.14);
+    object-fit: cover;
+    width: 100%;
+}
+
 .memory-entry-header {
     align-items: center;
     display: grid;
@@ -405,6 +425,83 @@ section {
     color: var(--color-muted);
     line-height: 1.65;
     margin-bottom: 0;
+}
+
+.delete-entry-form {
+    margin-top: 0.9rem;
+}
+
+.empty-books-state {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.empty-state-image {
+    display: block;
+    margin: 0 auto 1.5rem;
+    max-width: min(360px, 100%);
+    width: 100%;
+}
+
+/*.book-stats {
+    color: var(--color-muted);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
+    .book-stats span {
+        background: rgba(174, 164, 191, 0.22);
+        border: 1px solid var(--color-primary-soft);
+        border-radius: 999px;
+        padding: 0.35rem 0.75rem;
+    } */
+
+.book-actions {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.book-card-header {
+    align-items: flex-start;
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+}
+
+.book-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.book-stat-chip {
+    border-radius: 999px;
+    font-size: 0.95rem;
+    font-weight: 800;
+    padding: 0.35rem 0.75rem;
+}
+
+.book-stat-questions {
+    background: rgba(174, 164, 191, 0.25);
+    border: 1px solid var(--color-primary-soft);
+    color: var(--color-text);
+}
+
+.book-stat-entries {
+    background: rgba(119, 136, 115, 0.18);
+    border: 1px solid rgba(119, 136, 115, 0.45);
+    color: var(--color-secondary);
+}
+
+.delete-book-form {
+    margin: 0;
 }
 
 /* Join */
@@ -468,6 +565,7 @@ section {
         grid-template-columns: 1fr;
     }
 
+    .memory-entry-photo,
     .memory-entry-photo-placeholder {
         max-width: 10rem;
     }

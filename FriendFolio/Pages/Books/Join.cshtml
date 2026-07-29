@@ -17,14 +17,6 @@
     <p>Fyll i dina svar och skicka in ditt uppslag till boken.</p>
 </section>
 
-<div class="mb-3">
-    <label asp-for="PhotoUrl" class="form-label">Bildlänk</label>
-    <input asp-for="PhotoUrl"
-           class="form-control"
-           placeholder="Klistra in en länk till en bild om du vill" />
-    <span asp-validation-for="PhotoUrl" class="text-danger"></span>
-</div>
-
 @if (!Model.MemoryBook.Questions.Any())
 {
     <section class="empty-state">
@@ -42,6 +34,14 @@ else
                        class="form-control"
                        placeholder="Skriv ditt namn" />
                 <span asp-validation-for="DisplayName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="PhotoUrl" class="form-label">Bildlänk</label>
+                <input asp-for="PhotoUrl"
+                       class="form-control"
+                       placeholder="Klistra in en länk till en bild om du vill" />
+                <span asp-validation-for="PhotoUrl" class="text-danger"></span>
             </div>
 
             <div class="join-question-list">
