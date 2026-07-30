@@ -107,6 +107,40 @@ public class DetailsModel : PageModel
         return RedirectToPage("./Details", new { id });
     }
 
+    public async Task<IActionResult> OnPostMoveQuestionAsync(int id, int questionId, string direction)
+    {
+        var questions = await _context.BookQuestions
+            .Where(question => question.MemoryBookId == id)
+            .OrderBy(question => question.SortOrder)
+            .ToListAsync();
+
+        var currentIndex = questions.FindIndex(question => question.Id == questionId);
+
+        if (currentIndex == -1)
+        {
+            return NotFound();
+        }
+
+        var targetIndex = direction == "up"
+            ? currentIndex - 1
+            : currentIndex + 1;
+
+        if (targetIndex < 0 || targetIndex >= questions.Count)
+        {
+            return RedirectToPage("./Details", new { id });
+        }
+
+        var currentQuestion = questions[currentIndex];
+        var targetQuestion = questions[targetIndex];
+
+        (currentQuestion.SortOrder, targetQuestion.SortOrder) =
+            (targetQuestion.SortOrder, currentQuestion.SortOrder);
+
+        await _context.SaveChangesAsync();
+
+        return RedirectToPage("./Details", new { id });
+    }
+
     public async Task<IActionResult> OnPostDeleteQuestionAsync(int id, int questionId)
     {
         var question = await _context.BookQuestions

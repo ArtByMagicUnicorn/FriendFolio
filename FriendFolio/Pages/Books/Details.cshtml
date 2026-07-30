@@ -44,7 +44,9 @@
                id="inviteUrl"
                class="form-control"
                readonly />
+               </div>
 
+<div class="input-actions">
         <button type="button"
                 class="btn btn-outline-secondary"
                 onclick="copyInviteLink()">
@@ -56,6 +58,11 @@
            rel="noopener noreferrer"
            class="btn btn-outline-secondary">
             Öppna
+        </a>
+
+        <a class="btn btn-outline-secondary"
+           href="mailto:?subject=Du är inbjuden till min FriendFolio&body=Hej! Svara gärna i min vänbok här: @Model.InviteUrl">
+            Skicka via mail
         </a>
     </div>
 
@@ -76,12 +83,62 @@
     }
     else
     {
-        <ol class="question-list">
+        <div class="question-edit-list">
             @foreach (var question in Model.MemoryBook.Questions.OrderBy(question => question.SortOrder))
             {
-                <li>@question.Text</li>
+                <div class="question-edit-row">
+                    <form method="post"
+                          asp-page-handler="EditQuestion"
+                          asp-route-questionId="@question.Id"
+                          class="question-edit-form">
+                        <input name="QuestionText"
+                               value="@question.Text"
+                               class="form-control" />
+
+                        <button type="submit" class="btn btn-outline-secondary btn-sm">
+                            Spara
+                        </button>
+                    </form>
+
+                    <div class="question-order-actions">
+                        <form method="post"
+                              asp-page-handler="MoveQuestion"
+                              asp-route-questionId="@question.Id"
+                              asp-route-direction="up">
+                            <button type="submit"
+                                    class="btn btn-outline-secondary btn-sm"
+                                    title="Flytta upp"
+                                    aria-label="Flytta fråga upp">
+                                ↑
+                            </button>
+                        </form>
+
+                        <form method="post"
+                              asp-page-handler="MoveQuestion"
+                              asp-route-questionId="@question.Id"
+                              asp-route-direction="down">
+                            <button type="submit"
+                                    class="btn btn-outline-secondary btn-sm"
+                                    title="Flytta ner"
+                                    aria-label="Flytta fråga ner">
+                                ↓
+                            </button>
+                        </form>
+                    </div>
+
+                    <form method="post"
+                          asp-page-handler="DeleteQuestion"
+                          asp-route-questionId="@question.Id"
+                          class="delete-question-form">
+                        <button type="submit"
+                                class="btn btn-outline-secondary btn-sm"
+                                onclick="return confirm('Vill du ta bort frågan? Svar på den frågan tas också bort.');">
+                            Ta bort
+                        </button>
+                    </form>
+                </div>
             }
-        </ol>
+        </div>
     }
 
     <form method="post" asp-page-handler="AddQuestion" class="question-form">
