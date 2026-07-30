@@ -22,6 +22,9 @@ public class DetailsModel : PageModel
 
     public string InviteUrl { get; set; } = string.Empty;
 
+    [BindProperty]
+    public string QuestionText { get; set; } = string.Empty;
+
     public async Task<IActionResult> OnGetAsync(int id)
     {
         var memoryBook = await _context.MemoryBooks
@@ -75,6 +78,54 @@ public class DetailsModel : PageModel
         };
 
         _context.BookQuestions.Add(question);
+        await _context.SaveChangesAsync();
+
+        return RedirectToPage("./Details", new { id });
+    }
+
+    public async Task<IActionResult> OnPostEditQuestionAsync(int id, int questionId)
+    {
+        if (string.IsNullOrWhiteSpace(QuestionText))
+        {
+            return RedirectToPage("./Details", new { id });
+        }
+
+        var question = await _context.BookQuestions
+            .FirstOrDefaultAsync(question =>
+                question.Id == questionId &&
+                question.MemoryBookId == id);
+
+        if (question is null)
+        {
+            return NotFound();
+        }
+
+        question.Text = QuestionText.Trim();
+
+        await _context.SaveChangesAsync();
+
+        return RedirectToPage("./Details", new { id });
+    }
+
+    public async Task<IActionResult> OnPostDeleteQuestionAsync(int id, int questionId)
+    {
+        var question = await _context.BookQuestions
+            .FirstOrDefaultAsync(question =>
+                question.Id == questionId &&
+                question.MemoryBookId == id);
+
+        if (question is null)
+        {
+            return NotFound();
+        }
+
+        var answers = await _context.BookAnswers
+            .Where(answer => answer.BookQuestionId == questionId)
+            .ToListAsync();
+
+        _context.BookAnswers.RemoveRange(answers);
+        _context.BookQuestions.Remove(question);
+
         await _context.SaveChangesAsync();
 
         return RedirectToPage("./Details", new { id });

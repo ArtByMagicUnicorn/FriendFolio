@@ -504,6 +504,35 @@ section {
     margin: 0;
 }
 
+/*Questions*/
+    .question-edit-list {
+    display: grid;
+    gap: 0.85rem;
+}
+
+.question-edit-row {
+    align-items: center;
+    background: rgba(227, 228, 219, 0.42);
+    border: 1px solid rgba(59, 37, 44, 0.1);
+    border-radius: calc(var(--radius-card) * 0.75);
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: minmax(0, 1fr) auto;
+    padding: 0.85rem;
+}
+
+.question-edit-form {
+    align-items: center;
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.delete-question-form {
+    margin: 0;
+}
+
+
 /* Join */
 
 .join-card {
@@ -569,4 +598,14 @@ section {
     .memory-entry-photo-placeholder {
         max-width: 10rem;
     }
+
+    .question-edit-row,
+    .question-edit-form {
+        grid-template-columns: 1fr;
+    }
+
+        .question-edit-row .btn,
+        .question-edit-form .btn {
+            width: 100%;
+        }
 }
