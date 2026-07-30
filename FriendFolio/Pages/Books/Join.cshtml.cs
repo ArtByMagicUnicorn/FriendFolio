@@ -3,6 +3,7 @@ using FriendFolio.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace Friendfolio.Pages.Books;
 
@@ -21,6 +22,7 @@ public class JoinModel : PageModel
     public string DisplayName { get; set; } = string.Empty;
 
     [BindProperty]
+    [Url(ErrorMessage = "Skriv en giltig bildlänk.")]
     public string? PhotoUrl { get; set; }
 
     [BindProperty]
@@ -54,6 +56,11 @@ public class JoinModel : PageModel
         if (string.IsNullOrWhiteSpace(DisplayName))
         {
             ModelState.AddModelError(nameof(DisplayName), "Skriv ditt namn.");
+            return Page();
+        }
+
+        if (!ModelState.IsValid)
+        {
             return Page();
         }
 

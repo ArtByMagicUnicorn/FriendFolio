@@ -6,7 +6,17 @@
 }
 
 <section class="page-header book-header">
-    <a asp-page="./Index" class="btn btn-outline-secondary mb-3">Tillbaka till böcker</a>
+    <div class="form-actions mb-3">
+        <a asp-page="./Index" class="btn btn-outline-secondary">
+            Tillbaka till böcker
+        </a>
+
+        <a asp-page="./Edit"
+           asp-route-id="@Model.MemoryBook.Id"
+           class="btn btn-primary">
+            Redigera bok
+        </a>
+    </div>
 
     <p class="eyebrow">Vänbok</p>
     <h1>@Model.MemoryBook.Title</h1>
