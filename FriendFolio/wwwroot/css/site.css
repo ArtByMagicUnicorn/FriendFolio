@@ -308,6 +308,30 @@ section {
     margin-bottom: 0;
 }
 
+.occasion-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.occasion-card {
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    padding: 1.25rem;
+}
+
+    .occasion-card h3 {
+        font-size: 1.15rem;
+        margin-bottom: 0.6rem;
+    }
+
+    .occasion-card p {
+        color: var(--color-muted);
+        line-height: 1.55;
+        margin: 0;
+    }
+
 /* Books */
 
 .book-grid {
@@ -610,6 +634,12 @@ section {
 
 /* Responsive */
 
+@media (max-width: 900px) {
+    .occasion-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
 @media (max-width: 640px) {
     .page-shell {
         padding-top: 1.25rem;
@@ -624,9 +654,9 @@ section {
         gap: 0.75rem;
     }
 
-    .input-group .btn {
-        width: 100%;
-    }
+        .input-group .btn {
+            width: 100%;
+        }
 
     .home-hero {
         grid-template-columns: 1fr;
@@ -636,9 +666,9 @@ section {
         order: -1;
     }
 
-    .home-hero-brand img {
-        max-width: 260px;
-    }
+        .home-hero-brand img {
+            max-width: 260px;
+        }
 
     .memory-entry-header {
         grid-template-columns: 1fr;
@@ -658,4 +688,8 @@ section {
         .question-edit-form .btn {
             width: 100%;
         }
+
+    .occasion-grid {
+        grid-template-columns: 1fr;
+    }
 }
