@@ -8,10 +8,17 @@ The idea is inspired by classic "mina vänner"-books, where people answer person
 
 - Create digital friend books
 - Automatically add starter questions to new books
+- Edit book title and description
+- Delete books
 - Add custom questions
+- Edit questions
+- Delete questions
+- Reorder questions
 - Generate private invite links with invite tokens
 - Let invited people submit answers without logging in
+- Add optional photo URLs to submitted entries
 - View submitted entries and answers
+- Delete submitted entries
 - Copy invite links to the clipboard
 - Swedish user interface
 - Custom FriendFolio branding and favicon
@@ -33,10 +40,11 @@ The idea is inspired by classic "mina vänner"-books, where people answer person
 The core MVP flow is working:
 
 1. Create a book.
-2. Add or edit questions.
+2. Add, edit, delete, or reorder questions.
 3. Share the invite link.
-4. Let someone submit answers.
-5. View the submitted answers as the book owner.
+4. Let someone submit answers with an optional photo URL.
+5. View submitted answers as the book owner.
+6. Delete test entries or books when needed.
 
 ## Planned features
 
@@ -44,11 +52,17 @@ The core MVP flow is working:
 - Add book themes
 - Add optional English language support
 - Add owner authentication
-- Add edit/delete flows
+- Explore Google login
 - Add QR codes for invite links
 - Add image uploads
+- Explore Azure Blob Storage for uploaded images
+- Add optional future memory emails
 - Export books to PDF
 - Prepare for deployment
+
+## Roadmap
+
+See [docs/roadmap.md](docs/roadmap.md) for a more detailed roadmap.
 
 ## What I am practicing
 
