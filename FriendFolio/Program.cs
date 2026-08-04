@@ -14,6 +14,25 @@ namespace FriendFolio
             builder.Services.AddDbContext<FriendfolioDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("FriendfolioDb")));
 
+            builder.Services
+    .AddAuthentication(options =>
+    {
+        options.DefaultScheme = "FriendFolioCookie";
+        options.DefaultChallengeScheme = "Google";
+    })
+    .AddCookie("FriendFolioCookie", options =>
+    {
+        options.LoginPath = "/Account/Login";
+        options.LogoutPath = "/Account/Logout";
+    })
+    .AddGoogle("Google", options =>
+    {
+        options.ClientId = builder.Configuration["Authentication:Google:ClientId"]!;
+        options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"]!;
+    });
+
+            builder.Services.AddAuthorization();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -28,6 +47,7 @@ namespace FriendFolio
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapStaticAssets();

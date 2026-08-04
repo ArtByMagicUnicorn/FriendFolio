@@ -69,11 +69,19 @@
     @if (!string.IsNullOrWhiteSpace(Model.InviteQrCodeImage))
     {
         <div class="qr-code-panel">
-            <img src="@Model.InviteQrCodeImage"
-                 alt="QR-kod för delningslänken"
-                 class="qr-code-image" />
+            <div class="qr-code-frame">
+                <img src="@Model.InviteQrCodeImage"
+                     alt="QR-kod för delningslänken"
+                     class="qr-code-image" />
+            </div>
 
-            <p>Skanna QR-koden för att öppna vänboken.</p>
+            <div>
+                <p class="eyebrow">QR-kod</p>
+                <h3>Skanna och svara</h3>
+                <p>
+                    Låt någon öppna vänboken direkt med mobilkameran.
+                </p>
+            </div>
         </div>
     }
 
