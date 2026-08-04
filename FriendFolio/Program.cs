@@ -8,19 +8,23 @@ namespace FriendFolio
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-            builder.Services.AddRazorPages();
+            builder.Services.AddRazorPages(options =>
+            {
+                options.Conventions.AuthorizeFolder("/Books");
+                options.Conventions.AllowAnonymousToPage("/Books/Join");
+                options.Conventions.AllowAnonymousToPage("/Books/Thanks");
+            });
 
             builder.Services.AddDbContext<FriendfolioDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("FriendfolioDb")));
 
             builder.Services
-    .AddAuthentication(options =>
-    {
-        options.DefaultScheme = "FriendFolioCookie";
-        options.DefaultChallengeScheme = "Google";
-    })
-    .AddCookie("FriendFolioCookie", options =>
+            .AddAuthentication(options =>
+            {
+                options.DefaultScheme = "FriendFolioCookie";
+                options.DefaultChallengeScheme = "FriendFolioCookie";
+            })
+            .AddCookie("FriendFolioCookie", options =>
     {
         options.LoginPath = "/Account/Login";
         options.LogoutPath = "/Account/Logout";
@@ -29,6 +33,12 @@ namespace FriendFolio
     {
         options.ClientId = builder.Configuration["Authentication:Google:ClientId"]!;
         options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"]!;
+
+        options.Events.OnRedirectToAuthorizationEndpoint = context =>
+        {
+            context.Response.Redirect(context.RedirectUri + "&prompt=select_account");
+            return Task.CompletedTask;
+        };
     });
 
             builder.Services.AddAuthorization();
