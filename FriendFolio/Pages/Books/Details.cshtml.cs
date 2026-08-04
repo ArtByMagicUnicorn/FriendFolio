@@ -3,6 +3,7 @@ using FriendFolio.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using QRCoder;
 
 namespace Friendfolio.Pages.Books;
 
@@ -25,6 +26,8 @@ public class DetailsModel : PageModel
     [BindProperty]
     public string QuestionText { get; set; } = string.Empty;
 
+    public string InviteQrCodeImage { get; set; } = string.Empty;
+
     public async Task<IActionResult> OnGetAsync(int id)
     {
         var memoryBook = await _context.MemoryBooks
@@ -46,6 +49,8 @@ public class DetailsModel : PageModel
     pageHandler: null,
     values: new { inviteToken = memoryBook.InviteToken },
     protocol: Request.Scheme) ?? string.Empty;
+
+        InviteQrCodeImage = GenerateQrCodeImage(InviteUrl);
 
         return Page();
     }
@@ -184,5 +189,15 @@ public class DetailsModel : PageModel
         await _context.SaveChangesAsync();
 
         return RedirectToPage("./Details", new { id });
+    }
+
+    private static string GenerateQrCodeImage(string text)
+    {
+        using var qrGenerator = new QRCodeGenerator();
+        using var qrCodeData = qrGenerator.CreateQrCode(text, QRCodeGenerator.ECCLevel.Q);
+        using var qrCode = new PngByteQRCode(qrCodeData);
+
+        var qrCodeBytes = qrCode.GetGraphic(20);
+        return $"data:image/png;base64,{Convert.ToBase64String(qrCodeBytes)}";
     }
 }

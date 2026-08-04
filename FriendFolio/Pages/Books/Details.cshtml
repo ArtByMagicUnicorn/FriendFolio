@@ -66,6 +66,17 @@
         </a>
     </div>
 
+    @if (!string.IsNullOrWhiteSpace(Model.InviteQrCodeImage))
+    {
+        <div class="qr-code-panel">
+            <img src="@Model.InviteQrCodeImage"
+                 alt="QR-kod för delningslänken"
+                 class="qr-code-image" />
+
+            <p>Skanna QR-koden för att öppna vänboken.</p>
+        </div>
+    }
+
     <p id="copyMessage" class="copy-message" hidden>
         Länken är kopierad!
     </p>

@@ -22,6 +22,7 @@ The idea is inspired by classic "mina vänner"-books, where people answer person
 - Copy invite links to the clipboard
 - Swedish user interface
 - Custom FriendFolio branding and favicon
+- Generate QR codes for invite links
 
 ## Tech stack
 
@@ -53,7 +54,6 @@ The core MVP flow is working:
 - Add optional English language support
 - Add owner authentication
 - Explore Google login
-- Add QR codes for invite links
 - Add image uploads
 - Explore Azure Blob Storage for uploaded images
 - Add optional future memory emails

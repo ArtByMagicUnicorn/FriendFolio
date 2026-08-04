@@ -624,6 +624,34 @@ section {
     margin-top: 1rem;
 }
 
+/* QR Code */
+
+.qr-code-panel {
+    align-items: center;
+    background: rgba(227, 228, 219, 0.45);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    display: inline-flex;
+    gap: 1rem;
+    margin-top: 1.25rem;
+    padding: 1rem;
+}
+
+.qr-code-image {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    height: 9rem;
+    padding: 0.5rem;
+    width: 9rem;
+}
+
+.qr-code-panel p {
+    color: var(--color-muted);
+    margin: 0;
+    max-width: 16rem;
+}
+
 /* Thanks */
 
 .thanks-card {
@@ -691,5 +719,11 @@ section {
 
     .occasion-grid {
         grid-template-columns: 1fr;
+    }
+
+    .qr-code-panel {
+        align-items: flex-start;
+        display: flex;
+        flex-direction: column;
     }
 }
