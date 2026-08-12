@@ -3,6 +3,7 @@ using FriendFolio.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace Friendfolio.Pages.Books;
 
@@ -19,20 +20,25 @@ public class IndexModel : PageModel
 
     public async Task OnGetAsync()
     {
+        var ownerId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
         MemoryBooks = await _context.MemoryBooks
-    .Include(book => book.Questions)
-    .Include(book => book.Entries)
-    .OrderByDescending(book => book.CreatedAt)
-    .ToListAsync();
+            .Where(book => book.OwnerId == ownerId)
+            .Include(book => book.Questions)
+            .Include(book => book.Entries)
+            .OrderByDescending(book => book.CreatedAt)
+            .ToListAsync();
     }
 
     public async Task<IActionResult> OnPostDeleteAsync(int id)
     {
+        var ownerId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
         var memoryBook = await _context.MemoryBooks
             .Include(book => book.Questions)
             .Include(book => book.Entries)
                 .ThenInclude(entry => entry.Answers)
-            .FirstOrDefaultAsync(book => book.Id == id);
+            .FirstOrDefaultAsync(book => book.Id == id && book.OwnerId == ownerId);
 
         if (memoryBook is null)
         {

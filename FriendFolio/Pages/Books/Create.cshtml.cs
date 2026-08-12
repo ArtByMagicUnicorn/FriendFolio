@@ -2,6 +2,7 @@ using Friendfolio.Data;
 using FriendFolio.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Security.Claims;
 
 namespace Friendfolio.Pages.Books;
 
@@ -59,6 +60,9 @@ public class CreateModel : PageModel
         SortOrder = 5
     }
 ];
+
+        MemoryBook.OwnerId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
+        MemoryBook.OwnerEmail = User.FindFirstValue(ClaimTypes.Email);
 
         _context.MemoryBooks.Add(MemoryBook);
         await _context.SaveChangesAsync();

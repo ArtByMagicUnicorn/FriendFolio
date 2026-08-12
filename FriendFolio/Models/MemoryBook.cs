@@ -15,6 +15,10 @@
         public string InviteToken { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
+        public string OwnerId { get; set; } = string.Empty;
+
+        public string? OwnerEmail { get; set; }
+
         public List<BookQuestion> Questions { get; set; } = [];
         public List<BookEntry> Entries { get; set; } = [];
     }

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using QRCoder;
+using System.Security.Claims;
 
 namespace Friendfolio.Pages.Books;
 
@@ -30,12 +31,14 @@ public class DetailsModel : PageModel
 
     public async Task<IActionResult> OnGetAsync(int id)
     {
+        var ownerId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
         var memoryBook = await _context.MemoryBooks
-    .Include(book => book.Questions.OrderBy(question => question.SortOrder))
+    .Include(book => book.Questions)
     .Include(book => book.Entries)
         .ThenInclude(entry => entry.Answers)
             .ThenInclude(answer => answer.BookQuestion)
-    .FirstOrDefaultAsync(book => book.Id == id);
+    .FirstOrDefaultAsync(book => book.Id == id && book.OwnerId == ownerId);
 
         if (memoryBook is null)
         {
@@ -57,6 +60,12 @@ public class DetailsModel : PageModel
 
     public async Task<IActionResult> OnPostAddQuestionAsync(int id)
     {
+
+        if (!await UserOwnsBookAsync(id))
+        {
+            return NotFound();
+        }
+
         if (string.IsNullOrWhiteSpace(NewQuestionText))
         {
             return RedirectToPage("./Details", new { id });
@@ -90,6 +99,11 @@ public class DetailsModel : PageModel
 
     public async Task<IActionResult> OnPostEditQuestionAsync(int id, int questionId)
     {
+        if (!await UserOwnsBookAsync(id))
+        {
+            return NotFound();
+        }
+
         if (string.IsNullOrWhiteSpace(QuestionText))
         {
             return RedirectToPage("./Details", new { id });
@@ -114,6 +128,11 @@ public class DetailsModel : PageModel
 
     public async Task<IActionResult> OnPostMoveQuestionAsync(int id, int questionId, string direction)
     {
+        if (!await UserOwnsBookAsync(id))
+        {
+            return NotFound();
+        }
+
         var questions = await _context.BookQuestions
             .Where(question => question.MemoryBookId == id)
             .OrderBy(question => question.SortOrder)
@@ -148,6 +167,11 @@ public class DetailsModel : PageModel
 
     public async Task<IActionResult> OnPostDeleteQuestionAsync(int id, int questionId)
     {
+        if (!await UserOwnsBookAsync(id))
+        {
+            return NotFound();
+        }
+
         var question = await _context.BookQuestions
             .FirstOrDefaultAsync(question =>
                 question.Id == questionId &&
@@ -172,6 +196,11 @@ public class DetailsModel : PageModel
 
     public async Task<IActionResult> OnPostDeleteEntryAsync(int id, int entryId)
     {
+        if (!await UserOwnsBookAsync(id))
+        {
+            return NotFound();
+        }
+
         var entry = await _context.BookEntries
             .Include(entry => entry.Answers)
             .FirstOrDefaultAsync(entry =>
@@ -199,5 +228,13 @@ public class DetailsModel : PageModel
 
         var qrCodeBytes = qrCode.GetGraphic(20);
         return $"data:image/png;base64,{Convert.ToBase64String(qrCodeBytes)}";
+    }
+
+    private async Task<bool> UserOwnsBookAsync(int id)
+    {
+        var ownerId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        return await _context.MemoryBooks
+            .AnyAsync(book => book.Id == id && book.OwnerId == ownerId);
     }
 }

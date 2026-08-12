@@ -3,6 +3,7 @@ using FriendFolio.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace Friendfolio.Pages.Books;
 
@@ -20,8 +21,10 @@ public class EditModel : PageModel
 
     public async Task<IActionResult> OnGetAsync(int id)
     {
+        var ownerId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
         var memoryBook = await _context.MemoryBooks
-            .FirstOrDefaultAsync(book => book.Id == id);
+    .FirstOrDefaultAsync(book => book.Id == id && book.OwnerId == ownerId);
 
         if (memoryBook is null)
         {
@@ -45,8 +48,10 @@ public class EditModel : PageModel
             return Page();
         }
 
+        var ownerId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
         var memoryBookToUpdate = await _context.MemoryBooks
-            .FirstOrDefaultAsync(book => book.Id == id);
+            .FirstOrDefaultAsync(book => book.Id == id && book.OwnerId == ownerId);
 
         if (memoryBookToUpdate is null)
         {

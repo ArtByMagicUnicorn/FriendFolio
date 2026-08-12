@@ -3,6 +3,7 @@ using System;
 using Friendfolio.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FriendFolio.Migrations
 {
     [DbContext(typeof(FriendfolioDbContext))]
-    partial class FriendfolioDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260807094131_AddMemoryBookOwner")]
+    partial class AddMemoryBookOwner
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.10");
@@ -105,13 +108,6 @@ namespace FriendFolio.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("InviteToken")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("OwnerEmail")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("OwnerId")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
