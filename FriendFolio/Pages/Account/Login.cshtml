@@ -5,16 +5,31 @@
     ViewData["Title"] = "Logga in";
 }
 
-<section class="page-header">
-    <p class="eyebrow">Konto</p>
-    <h1>Logga in</h1>
-    <p>Logga in med Google för att skapa och hantera dina vänböcker.</p>
-</section>
+<section class="login-page">
+    <div class="login-copy">
+        <p class="eyebrow">Konto</p>
+        <h1>Logga in och hantera dina vänböcker.</h1>
+        <p>
+            Skapa böcker, lägg till frågor och samla svar från de personer du bjuder in.
+            Gäster som svarar via en delningslänk behöver inget konto.
+        </p>
+    </div>
 
-<section class="form-card">
-    <form method="post">
-        <button type="submit" class="btn btn-primary">
-            Logga in med Google
-        </button>
-    </form>
+    <section class="login-card">
+        <p class="eyebrow">FriendFolio</p>
+        <h2>Fortsätt med Google</h2>
+        <p>
+            Din inloggning används för att koppla dina böcker till dig.
+        </p>
+
+        <form method="post">
+            <button type="submit" class="btn btn-primary login-button">
+                Logga in med Google
+            </button>
+        </form>
+
+        <p class="login-note">
+            Du skickas vidare till Google och kommer sedan tillbaka till FriendFolio.
+        </p>
+    </section>
 </section>
