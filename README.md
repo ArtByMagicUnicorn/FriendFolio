@@ -23,6 +23,11 @@ The idea is inspired by classic "mina vänner"-books, where people answer person
 - Swedish user interface
 - Custom FriendFolio branding and favicon
 - Generate QR codes for invite links
+- Google login for book owners
+- User-owned books
+- Protect book management pages behind login
+- Allow invited guests to submit answers without logging in
+- Generate QR codes for invite links
 
 ## Tech stack
 
@@ -40,19 +45,20 @@ The idea is inspired by classic "mina vänner"-books, where people answer person
 
 The core MVP flow is working:
 
-1. Create a book.
-2. Add, edit, delete, or reorder questions.
-3. Share the invite link.
-4. Let someone submit answers with an optional photo URL.
-5. View submitted answers as the book owner.
-6. Delete test entries or books when needed.
+1. A book owner logs in with Google.
+2. The owner creates a digital friend book.
+3. The owner adds, edits, deletes, or reorders questions.
+4. The owner shares an invite link or QR code.
+5. Invited guests submit answers without logging in.
+6. The owner views submitted answers after logging in.
+7. Books and management actions are protected by ownership checks.
 
 ## Planned features
 
 - Improve the visual design
 - Add book themes
 - Add optional English language support
-- Add owner authentication
+- Improve account management
 - Explore Google login
 - Add image uploads
 - Explore Azure Blob Storage for uploaded images
