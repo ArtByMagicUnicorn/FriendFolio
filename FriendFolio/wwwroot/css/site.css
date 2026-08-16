@@ -102,6 +102,17 @@ section {
     width: 2.25rem;
 }
 
+.nav-auth {
+    align-items: center;
+    gap: 1rem;
+}
+
+.nav-user-name {
+    color: var(--color-muted);
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1;
+}
 /* Buttons And Forms */
 
 .btn-primary {
@@ -275,6 +286,13 @@ section {
     margin-bottom: 0;
 }
 
+.nav-user-name {
+    color: var(--color-muted);
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-right: 1rem;
+}
+
 /* Home */
 
 .home-hero {
@@ -383,6 +401,35 @@ section {
         color: var(--color-muted);
         line-height: 1.55;
         margin: 0;
+    }
+
+.home-memory-line {
+    color: var(--color-primary);
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-top: 1rem;
+}
+
+.daily-question-card {
+    background: linear-gradient(135deg, rgba(174, 164, 191, 0.24), rgba(143, 101, 147, 0.12)), var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-soft);
+    margin-bottom: 2rem;
+    padding: 2rem;
+}
+
+    .daily-question-card h2 {
+        font-family: var(--font-heading);
+        font-size: clamp(1.8rem, 3vw, 2.8rem);
+        margin-bottom: 1rem;
+    }
+
+    .daily-question-card p:not(.eyebrow) {
+        color: var(--color-muted);
+        font-size: 1.1rem;
+        line-height: 1.7;
+        margin-bottom: 0;
     }
 
 /* Books */
@@ -716,6 +763,26 @@ section {
     line-height: 1.5;
     margin: 0;
 }
+
+/* Privacy */
+
+.privacy-content {
+    max-width: 56rem;
+}
+
+    .privacy-content h2 {
+        font-size: 1.5rem;
+        margin-top: 2rem;
+    }
+
+        .privacy-content h2:first-child {
+            margin-top: 0;
+        }
+
+    .privacy-content p {
+        color: var(--color-muted);
+        line-height: 1.7;
+    }
 
 /* Thanks */
 

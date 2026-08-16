@@ -33,27 +33,20 @@
                         </li>
                     </ul>
 
-                    <ul class="navbar-nav ms-auto">
+                    <ul class="navbar-nav ms-auto nav-auth">
                         @if (User.Identity?.IsAuthenticated == true)
                         {
                             <li class="nav-item">
-                                <span class="nav-link text-dark">
-                                    @User.Identity.Name
-                                </span>
+                                <span class="nav-user-name">@User.Identity.Name</span>
                             </li>
-
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-page="/Account/Logout">
-                                    Logga ut
-                                </a>
+                                <a class="nav-link text-dark" asp-page="/Account/Logout">Logga ut</a>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-page="/Account/Login">
-                                    Logga in
-                                </a>
+                                <a class="nav-link text-dark" asp-page="/Account/Login">Logga in</a>
                             </li>
                         }
                     </ul>
