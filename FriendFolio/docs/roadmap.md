@@ -14,11 +14,20 @@ FriendFolio is a digital friendship book where users can create a book, share an
 - Delete questions
 - Reorder questions
 - Share invite link
-- Submit answers through invite link
-- Add optional photo URL to an entry
+- Copy invite link
+- Show QR code for invite link
+- Submit answers through invite link without logging in
+- Add optional validated photo URL to an entry
 - View submitted entries
 - Delete submitted entries
+- Login/logout with Google
+- Store owner/user for each memory book
+- Show only the logged-in user's books
+- Protect book management pages
 - Basic Swedish UI
+- FriendFolio start page with three-step explanation
+- Daily question on start page
+- Privacy page with data handling information
 - Local SQLite database
 - EF Core migrations
 
@@ -36,23 +45,21 @@ Make the “Mina böcker” page feel more polished and useful.
 
 ### 2. Improve Start Page
 
-Give the start page a stronger FriendFolio identity.
+Continue polishing the FriendFolio identity.
 
-- Add clearer product introduction
-- Use the FriendFolio brand image
-- Explain the three-step flow
-- Add stronger call-to-action buttons
+- Refine the Daily Question card design
+- Keep typography consistent
+- Improve spacing and visual hierarchy
 - Make the page feel warm, personal, and trustworthy
 
-### 3. Add Authentication
+### 3. Authentication Polish
 
-Allow users to log in and manage their own books.
+Improve the authentication experience.
 
-- Add login/logout
-- Explore Google login
-- Store the owner/user for each memory book
-- Show only the logged-in user's books
-- Protect create, edit, delete, and details management pages
+- Replace temporary Google login icon with official Google brand asset
+- Explore BankID login as a future authentication option
+- Improve account-related UI text
+- Consider showing account details/settings later
 
 ### 4. Improve Invite Flow
 
@@ -63,6 +70,8 @@ Make the shared invite experience clearer and more pleasant.
 - Add better validation messages
 - Add confirmation before submitting
 - Make the thank-you page more personal
+- Keep users near the question section after editing, adding, or reordering questions
+- Improve mobile layout for question controls
 
 ### 5. Better Photo Handling
 

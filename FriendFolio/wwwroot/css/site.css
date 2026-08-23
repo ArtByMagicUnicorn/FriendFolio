@@ -181,6 +181,26 @@ section {
     padding: 0;
 }
 
+.google-login-button {
+    align-items: center;
+    display: inline-flex;
+    gap: 0.75rem;
+    justify-content: center;
+}
+
+.google-icon {
+    align-items: center;
+    background: var(--color-surface);
+    border-radius: 999px;
+    color: #4285f4;
+    display: inline-flex;
+    font-weight: 800;
+    height: 1.6rem;
+    justify-content: center;
+    line-height: 1;
+    width: 1.6rem;
+}
+
 /* Shared Components */
 
 
