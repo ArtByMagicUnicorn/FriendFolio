@@ -94,7 +94,7 @@ public class DetailsModel : PageModel
         _context.BookQuestions.Add(question);
         await _context.SaveChangesAsync();
 
-        return RedirectToPage("./Details", new { id });
+        return RedirectToPage("./Details", null, new { id }, "questions");
     }
 
     public async Task<IActionResult> OnPostEditQuestionAsync(int id, int questionId)
@@ -123,7 +123,7 @@ public class DetailsModel : PageModel
 
         await _context.SaveChangesAsync();
 
-        return RedirectToPage("./Details", new { id });
+        return RedirectToPage("./Details", null, new { id }, "questions");
     }
 
     public async Task<IActionResult> OnPostMoveQuestionAsync(int id, int questionId, string direction)
@@ -162,7 +162,7 @@ public class DetailsModel : PageModel
 
         await _context.SaveChangesAsync();
 
-        return RedirectToPage("./Details", new { id });
+        return RedirectToPage("./Details", null, new { id }, "questions");
     }
 
     public async Task<IActionResult> OnPostDeleteQuestionAsync(int id, int questionId)
@@ -191,7 +191,7 @@ public class DetailsModel : PageModel
 
         await _context.SaveChangesAsync();
 
-        return RedirectToPage("./Details", new { id });
+        return RedirectToPage("./Details", null, new { id }, "questions");
     }
 
     public async Task<IActionResult> OnPostDeleteEntryAsync(int id, int entryId)
@@ -217,7 +217,7 @@ public class DetailsModel : PageModel
 
         await _context.SaveChangesAsync();
 
-        return RedirectToPage("./Details", new { id });
+        return RedirectToPage("./Details", null, new { id }, "questions");
     }
 
     private static string GenerateQrCodeImage(string text)

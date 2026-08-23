@@ -107,3 +107,10 @@ Let contributors choose if they want a copy of their answers emailed to them in 
 - Use a mail provider such as SendGrid or Azure Communication Services
 
 This is a later cloud feature, not part of the first MVP.
+
+### 9. Speech to text
+
+Let contributors answer by speaking and make an API transcribe it into writing. 
+
+- Add optional speech-to-text for answering questions
+- Explore optional AI summaries for long answers, with clear privacy information
